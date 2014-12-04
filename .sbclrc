@@ -1,1 +1,66 @@
-/Users/lonstein/.sbclrc
+;;;
+;;; SBCL initialization
+;;;
+
+(in-package "CL-USER")
+;(declaim (optimize (safety 1)))
+;(declaim (optimize (debug 3)))
+;(declaim (optimize (speed 1)))
+(declaim (optimize (speed 0) (safety 3) (debug 3) (space 0)))     
+
+(require :asdf)
+
+(setf asdf:*central-registry*
+      (list* '*default-pathname-defaults*
+;             #p "/Users/lonstein/lisp/libcl/.asdf/"
+;             #p "/Users/lonstein/lisp/clbuild/systems"
+             #p "/Users/lonstein/.sbcl/systems/"
+;             #p "/opt/local/share/common-lisp/systems/"
+             asdf:*central-registry*))
+
+;(require :asdf-binary-locations)
+
+; from Pascal Bourguignon
+(defun asdf-load        (system) (asdf:operate 'asdf:load-op        system))
+(defun asdf-load-source (system) (asdf:operate 'asdf:load-source-op system))
+
+;;; From Bill Clementson...
+;;; If the fasl was stale, try to recompile and load (once). Since only SBCL
+;;; has a separate condition for bogus fasls we retry on any old error
+;;; on other lisps. Actually, Allegro has a similar condition, but it's 
+;;; unexported.  Works nicely for the ACL7 upgrade, though.
+(defmethod asdf:perform :around ((o asdf:load-op) (c asdf:cl-source-file))
+  (handler-case (call-next-method o c)
+      (#+sbcl sb-ext:invalid-fasl 
+           #+allegro excl::file-incompatible-fasl-error
+	   #-(or sbcl allegro) error ()
+	   (asdf:perform (make-instance 'asdf:compile-op) c)
+	   (call-next-method))))
+
+
+;;; If the first user-processable command-line argument is a filename,
+;;; disable the debugger, load the file handling shebang-line and quit.
+(let ((script (and (second *posix-argv*)
+                   (probe-file (second *posix-argv*)))))
+  (when script
+    ;; Handle shebang-line
+    (set-dispatch-macro-character #\# #\!
+                                  (lambda (stream char arg)
+                                            (declare (ignore char arg))
+                                            (read-line stream)))
+    ;; Disable debugger
+    (setf *invoke-debugger-hook*
+          (lambda (condition hook)
+                   (declare (ignore hook))
+                   ;; Uncomment to get backtraces on errors
+                   ;; (sb-debug:backtrace 20)
+                   (format *error-output* "Error: ~A~%" condition)
+                   (sb-ext:exit)))
+    (load script)
+    (sb-ext:exit)))
+
+#-quicklisp
+ (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+                                        (user-homedir-pathname))))
+   (when (probe-file quicklisp-init)
+     (load quicklisp-init)))
