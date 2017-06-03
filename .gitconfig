@@ -51,6 +51,8 @@
 
   lasttag = "describe --tags"
 
+  taghist = "!git for-each-ref --format=\"%(refname:short) %(taggerdate) %(subject) %(body)\" refs/tags"
+
   save = "!git add -A && git commit -m'SAVE: Review/Refactor this later'"
 
   undo = "reset HEAD~1 --mixed"
@@ -86,6 +88,11 @@
   tag2branch = "!sh -c \"git checkout -b branch/$1 $1\""
 
   graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+
+  syncup = "!sh -xc 'git checkout master && \
+                     git fetch \"${1:-upstream}\" && \
+                     git rebase \"${1:-upstream}\"/master && \
+                     git push \"${2:-origin}\"' --"
 
 [push]
 	default = tracking
