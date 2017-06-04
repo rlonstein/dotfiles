@@ -1,0 +1,33 @@
+# Disable color and theme in dumb/basic terminals. 
+if [[ "$TERM" == 'dumb' || "$TERM" == "linux" ]]; then
+   zstyle ':zsh' color 'no'
+   zstyle ':zsh:prompt' theme 'off'
+fi
+
+export EDITOR="emacs"
+export PAGER="less"
+
+[ -z "$HOSTNAME" ] && export HOSTNAME="$(hostname)"
+
+export HISTSIZE=25000
+export SAVEHIST="${HISTSIZE}"
+
+autoload -Uz compinit promptinit
+compinit
+promptinit
+
+prompt suse
+
+setopt cdablevars
+setopt checkjobs
+setopt autocd
+setopt HISTSAVENODUPS
+setopt HISTFINDNODUPS
+setopt hist_ignore_dups
+setopt appendhistory
+setopt pushdignoredups 
+setopt sharehistory 
+
+for zshrc_file in $HOME/.zsh/*.zsh; do
+  source $zshrc_file
+done

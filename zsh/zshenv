@@ -1,0 +1,31 @@
+
+path=(
+  $HOME/bin
+  $HOME/.local/bin
+  $HOME.rvm/bin
+  /opt/local/bin
+  /bin
+  /usr/bin
+  /usr/sbin
+  /usr/local/bin
+  /usr/local/sbin
+  /sbin
+  /opt/X11/bin
+  /opt/local/Library/Frameworks/Python.framework/2.7/bin
+  $path
+)
+
+typeset -gU path
+typeset -x PATH
+
+_system=`uname`
+case "${_system}" in 
+  *Linux*)    OS="Linux"      ;;
+  *Darwin*)   OS="Darwin"     ;;
+  *Solaris*)  OS="Solaris"    ;;
+  *BSD*)      OS="BSD"        ;;
+  *)          OS="${_system}" ;;
+esac
+
+typeset -x OS
+
