@@ -1,5 +1,3 @@
-
-
 alias lsa='ls -A'
 alias lsd='ls -d *(/)'
 alias ll='ls -lAh'
