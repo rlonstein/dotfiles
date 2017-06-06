@@ -12,6 +12,8 @@ export PAGER="less"
 export HISTSIZE=25000
 export SAVEHIST="${HISTSIZE}"
 
+fpath=(~/.zsh/completion $fpath)
+
 autoload -Uz compinit promptinit
 compinit
 promptinit
@@ -31,3 +33,4 @@ setopt sharehistory
 for zshrc_file in $HOME/.zsh/*.zsh; do
   source $zshrc_file
 done
+
