@@ -1,4 +1,3 @@
-
 path=(
   $HOME/bin
   $HOME/.local/bin
@@ -28,4 +27,9 @@ case "${_system}" in
 esac
 
 typeset -x OS
+
+if [[ "${OS}" = "Darwin" ]]; then
+  # don't screw with my shell, OSX ElCap
+  setopt no_global_rcs
+fi
 
