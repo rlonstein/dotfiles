@@ -1,21 +1,14 @@
 path=(
   $HOME/bin
+  $HOME/local/bin
   $HOME/.local/bin
-  $HOME.rvm/bin
-  /opt/local/bin
   /bin
   /usr/bin
   /usr/sbin
   /usr/local/bin
   /usr/local/sbin
   /sbin
-  /opt/X11/bin
-  /opt/local/Library/Frameworks/Python.framework/2.7/bin
-  $path
 )
-
-typeset -gU path
-typeset -x PATH
 
 _system=`uname`
 case "${_system}" in 
@@ -31,5 +24,22 @@ typeset -x OS
 if [[ "${OS}" = "Darwin" ]]; then
   # don't screw with my shell, OSX ElCap
   setopt no_global_rcs
+
+  # and update paths
+  path=(
+    $HOME.rvm/bin
+    /opt/local/bin
+    /opt/X11/bin
+    /opt/local/Library/Frameworks/Python.framework/2.7/bin
+    $path
+  )
+elif [[ "${OS}" = "Linux" ]]; then
+  path=(
+    $HOME/.rbenv/bin
+    $path
+  )
 fi
+
+typeset -gU path
+typeset -x PATH
 

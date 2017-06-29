@@ -30,7 +30,12 @@ setopt appendhistory
 setopt pushdignoredups 
 setopt sharehistory 
 
+if [[ -n `which rbenv` ]]; then
+  eval "$(rbenv init -)"
+fi
+
 for zshrc_file in $HOME/.zsh/*.zsh; do
   source $zshrc_file
 done
+
 
