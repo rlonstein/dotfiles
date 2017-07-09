@@ -9,8 +9,12 @@ export PAGER="less"
 
 [ -z "$HOSTNAME" ] && export HOSTNAME="$(hostname)"
 
-export HISTSIZE=25000
-export SAVEHIST="${HISTSIZE}"
+if [ -z "$HISTFILE" ]; then
+    HISTFILE=$HOME/.zsh_history
+fi
+
+HISTSIZE=25000
+SAVEHIST="${HISTSIZE}"
 
 fpath=(~/.zsh/completion $fpath)
 
@@ -25,10 +29,14 @@ setopt checkjobs
 setopt autocd
 setopt HISTSAVENODUPS
 setopt HISTFINDNODUPS
-setopt hist_ignore_dups
-setopt appendhistory
 setopt pushdignoredups 
-setopt sharehistory 
+setopt append_history
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt inc_append_history
+setopt share_history 
+setopt extended_history
 
 if [[ -n `which rbenv` ]]; then
   eval "$(rbenv init -)"
