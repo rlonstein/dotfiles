@@ -1,0 +1,2 @@
+LSCOLORS=Gxfxcxdxbxegedabagacad
+

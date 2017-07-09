@@ -69,4 +69,12 @@ kfindsvc() {
 }
 
 
+k50 () {
+    KOPS_STATE_STORE=s3://oscar-ai-kops kops export kubecfg --name $1
+}
+
+kcred () {
+  aws s3 cp s3://oscar-ai-kubernetes/${1:-control}.aws-us-west-2.datapipe.io/kubeconfig ~/.kube/config
+}
+
 #kubeconfig
