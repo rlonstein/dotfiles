@@ -16,6 +16,9 @@ tools=(
   github.com/ksubedi/gomove
   github.com/motemen/gore
   github.com/nsf/gocode
+  github.com/opennota/check/cmd/aligncheck
+  github.com/opennota/check/cmd/structcheck
+  github.com/opennota/check/cmd/varcheck
   github.com/rogpeppe/godef
   github.com/smartystreets/goconvey
   github.com/sqs/goreturns
