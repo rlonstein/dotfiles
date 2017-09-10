@@ -15,3 +15,8 @@ else
   alias group="stat -f '%Sg (%g) %N'"
 fi
 
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+

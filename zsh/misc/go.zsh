@@ -9,12 +9,17 @@ if [ -z $GOPATH ]; then
 fi
 
 tools=(
+  github.com/GoASTScanner/gas
   github.com/Masterminds/glide
   github.com/alecthomas/gometalinter
+  github.com/davecgh/go-spew/spew
   github.com/derekparker/delve/cmd/dlv
   github.com/golang/lint/golint
+  github.com/kisielk/errcheck
   github.com/ksubedi/gomove
+  github.com/mdempsky/unconvert
   github.com/motemen/gore
+  github.com/mvdan/interfacer
   github.com/nsf/gocode
   github.com/opennota/check/cmd/aligncheck
   github.com/opennota/check/cmd/structcheck
@@ -22,6 +27,7 @@ tools=(
   github.com/rogpeppe/godef
   github.com/smartystreets/goconvey
   github.com/sqs/goreturns
+  golang.org/x/tools/cmd/godoc
   golang.org/x/tools/cmd/gorename
   honnef.co/go/tools/cmd/gosimple
   honnef.co/go/tools/cmd/megacheck
