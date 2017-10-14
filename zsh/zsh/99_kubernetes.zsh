@@ -1,11 +1,53 @@
 kubeconfig() {
-    KUBECONFIG=`find ~/.kube/config ~/.kube/conf.d -type f 2>/dev/null | paste -s -d : -`
+    KUBECONF_PATH="$HOME/.kube"
+    KUBECONFIG="$KUBECONF_PATH/config"
     if [ -z "${KUBECONFIG}" ]; then
         echo "** ERROR: No kube config found"
         return 1
     else
         export KUBECONFIG
+        export KUBECONF_PATH
     fi
+}
+
+kc_conf_get_name() {
+    # output filename and name@server
+    if [ $# -ne 1 ]; then
+        echo "Usage: $0 <kubename>"
+        return 1
+    fi
+    y2j "$KUBECONF_PATH/conf.d/$1" | jq -r '.clusters[]|[.name,.cluster.server|sub("^[a-z0-9.-_]*://";"")]|join("@")'
+}
+
+kc_conf_list() {
+    if [ -z "$KUBECONF_PATH" ]; then
+        echo "No kube conf path set!"
+        return 1
+    fi
+    
+    for c in $(find "$KUBECONF_PATH/conf.d" -type f); do
+        name=`basename $c`
+        id=$(kc_conf_get_name $name)
+        echo "$name,$id"
+    done
+}
+
+kc_conf_change() {
+    if [ $# -ne 1 ]; then
+        echo "Usage: $0 <kubecfgname>"
+        return 1
+    fi
+
+    if [ ! -e "$KUBECONF_PATH/conf.d/$1" ]; then
+        echo "Config not found!"
+        return 1
+    fi
+    
+    if [ -e "$KUBECONF_PATH/config" ]; then
+        mv "$KUBECONF_PATH/config" "$KUBECONF_PATH/config.bak"
+    fi
+
+    cp "$KUBECONF_PATH/conf.d/$1" "$KUBECONF_PATH/config"
 }
 
 kuse() {
@@ -77,4 +119,4 @@ kcred () {
   aws s3 cp s3://oscar-ai-kubernetes/${1:-control}.aws-us-west-2.datapipe.io/kubeconfig ~/.kube/config
 }
 
-#kubeconfig
+kubeconfig

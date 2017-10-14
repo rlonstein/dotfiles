@@ -20,3 +20,5 @@ alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
 
+alias hexdump='od -A x -t x1z -v'
+

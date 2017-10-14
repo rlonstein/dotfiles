@@ -4,7 +4,7 @@ if [[ "$TERM" == 'dumb' || "$TERM" == "linux" ]]; then
    zstyle ':zsh:prompt' theme 'off'
 fi
 
-export EDITOR="emacs"
+export EDITOR="emacs -nw"
 export PAGER="less"
 
 [ -z "$HOSTNAME" ] && export HOSTNAME="$(hostname)"
@@ -21,6 +21,9 @@ fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit promptinit
 compinit
 promptinit
+
+autoload -U select-word-style
+select-word-style bash
 
 prompt suse
 
