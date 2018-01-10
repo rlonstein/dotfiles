@@ -110,13 +110,16 @@ kfindsvc() {
     esac
 }
 
-
-k50 () {
-    KOPS_STATE_STORE=s3://oscar-ai-kops kops export kubecfg --name $1
+_kdelete-jobs() {
+    for i in `kubectl -n $1 get jobs -l component=$2 | awk '! /NAME/{print $1}'`; do
+        printf "%s -- Deleting job '%s'\n" `date +"%Y%m%dT%TZ%z"` $i
+        kubectl -n $1 delete job/$i;
+    done
 }
 
-kcred () {
-  aws s3 cp s3://oscar-ai-kubernetes/${1:-control}.aws-us-west-2.datapipe.io/kubeconfig ~/.kube/config
+# Quickly delete elasticsearch jobs
+kdelete-jobs-es() {
+  _kdelete-jobs "lme" "elasticsearch"
 }
 
 kubeconfig

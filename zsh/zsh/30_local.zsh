@@ -1,5 +1,5 @@
 func dpgo() {
-     export GOPATH=$HOME/datapipe/git/go
+     export GOPATH=$HOME/datapipe/repos/go
      export PATH=$PATH:$GOPATH/bin
 }
 
