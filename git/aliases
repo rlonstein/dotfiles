@@ -1,0 +1,50 @@
+abandonmerge    !sh -c 'git reset --hard HEAD &&
+		git fetch origin &&                            git reset
+		--hard origin'
+alias           ! sh -c 'case $# in			  0) git config
+		--get-regexp "^alias."				 | sort | sed
+		"s/^alias.//; s/ / /"				| while read
+		n v; do				     printf "%-16s" "$n";
+		echo "$v" | fmt -sw 63 | sed "2,$ s/^/		      /" ;
+		done ;;			      1) git config --get-regexp
+		"^alias.$1.*" ;; esac' -
+amend           commit -a --amend
+b               branch -vv
+export          !sh -x -c 'GIT_WORK_TREE "$2" git checkout -f "$1"'
+find            !find . -path './.git' -prune -o -print
+graphviz        !f() { echo 'digraph git {' ; git log --pretty 'format:
+		%h -> { %p }' "$@" | sed 's/[0-9a-f][0-9a-f]*/"&"/g' ; echo
+		'}'; }; f
+k               !gitk --all
+lasttag         describe --tags
+lg              log --graph --pretty format:'%Cred%h%Creset -%Creset %s
+		%Cgreen(%cr) %C(bold blue)<%an>%Creset'
+l               log
+ls              ls-files
+one             show -s --pretty 'format:%h (%s)'
+purr            pull --rebase
+ready           rebase --interactive --autosquash @{u}. @{u}
+rv              remote -v
+savebranch      !sh -c "git branch $1 &&                         git reset
+		--hard HEAD~$2 &&                         git checkout $1"
+save            !git add -A && git commit -m'SAVE: Review/Refactor this later'
+standup         log --pretty format:'%Cred%h%Creset -%Creset %s %Cgreen(%cD)
+		%C(bold blue)<%an>%Creset' --since yesterday --author lonstein
+syncup          !sh -xc 'git checkout master &&                      git
+		fetch "${1:-upstream}" &&                      git rebase
+		"${1:-upstream}"/master &&                      git push
+		"${2:-origin}"' --
+tag2branch      !sh -c "git checkout -b branch/$1 $1"
+taghist         !git for-each-ref --format "%(refname:short) %(taggerdate)
+		%(subject) %(body)" refs/tags
+testmerge       !sh -c "git merge-tree `git merge-base FETCH_HEAD $1`
+		FETCH_HEAD $1"
+t               tag -l
+uncommit        reset --soft HEAD^
+undo            reset HEAD~1 --mixed
+unstage         reset HEAD
+whatis          show -s --pretty 'format:%h (%s, %ad)' --date=short
+whois           !sh -c 'git log -i -1 --pretty "format:%an <%ae>
+wipe            !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset
+		HEAD~1 --hard
+"               --author "$1"' -
