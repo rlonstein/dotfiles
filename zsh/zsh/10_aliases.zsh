@@ -1,3 +1,4 @@
+alias ls='ls --color=auto'
 alias lsa='ls -A'
 alias lsd='ls -d *(/)'
 alias ll='ls -lAh'
