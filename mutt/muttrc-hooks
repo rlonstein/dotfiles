@@ -1,0 +1,4 @@
+send-hook . 'set from=rlonstein@pobox.com'
+send-hook . 'my_hdr From: Ross Lonstein <rlonstein@pobox.com>'
+send-hook '~C sunhelp\.org' 'my_hdr From: Ross Lonstein <rlonstein+sunhelp@pobox.com>'
+

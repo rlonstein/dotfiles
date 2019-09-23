@@ -1,0 +1,84 @@
+source ~/.mutt/muttrc-imap
+
+set read_inc=100
+set write_inc=100
+
+set sendmail = "/usr/bin/msmtp"
+
+set imap_check_subscribed=yes
+set imap_list_subscribed=no
+set imap_keepalive=15
+unset imap_passive
+set mail_check=30
+set timeout=10
+
+set index_format="%4C %Z %{%m/%d} %-15.15F (%4c) %s" # format of the index
+set mailcap_path = ~/.mutt/mailcap
+#set editor="remacsclient -nw"
+set editor="emacsclient -nw"
+
+set header_cache=~/.mutt/cache
+#set header_cache_backend=tokyocabinet
+
+set sidebar_visible
+set sidebar_width=32
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
+set sidebar_folder_indent=yes
+set sidebar_indent_string='  '
+set sidebar_short_path=yes
+set sidebar_divider_char = '|'
+set mail_check_stats
+
+set reply_to=ask-yes     # "reply": set:  Use address in Reply-To?
+set attribution="On %d, %n wrote:"      # how to attribute replies
+set autoedit                    # go to the editor right away when composing
+set noconfirmappend             # don't ask me if i want to append to mailboxes
+set copy=yes                    # always save a copy of outgoing messages
+set delete=yes                  # purge deleted messages without asking
+set edit_headers                # let me edit the message header when composing
+set forward_quote               # quote the header and body of forward msgs
+set help                        # show the help lines
+set include                     # always include messages when replying
+set mark_old=no                 # i don't care about whether a message is old
+set markers=no                  # wrap sans plus sign
+set metoo                       # remove my address when replying
+set mime_forward                # use message/rfc822 type to forward messages
+set forward_decode
+set forward_quote
+set pager_context=3             # no. of lines of context to give when scrolling
+set pager_index_lines=6         # how many index lines to show in the pager
+set noprompt_after      # ask me for a command after the external pager exits
+set reverse_name                # use my address as it appears in the message
+                                # i am replying to
+set nosave_empty                # remove files when no messages are left
+set sort=threads                # primary sorting method
+set tilde                       # virtual lines to pad blank lines in the pager
+set nouse_domain                # don't qualify local addresses with $domain
+
+set use_from                    # always generate the `From:' header field
+set envelope_from = "yes"
+
+unset followup_to
+
+
+# HEADER DISPLAY
+ignore *
+unignore from: date: subject: to: cc: reply-to:
+unignore sender:
+unignore priority: importance:
+unignore organization organisation
+unignore mail-followup-to:
+unignore resent- x-resent
+
+unhdr_order *
+hdr_order Sender: From From: Reply-To: Subject: Organization: Date: \
+          Message-Id: User-Agent: X-Editor: X-Mailer: X-Newsreader: \
+          X-Agent: To: Cc: Newsgroups: X-Resent Followup-To: Mail-Followup-To:
+
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+
+source ~/.mutt/muttrc-bindings
+source ~/.mutt/muttrc-macros
+source ~/.mutt/muttrc-colors
+source ~/.mutt/muttrc-hooks

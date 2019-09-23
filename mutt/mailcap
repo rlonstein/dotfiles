@@ -1,0 +1,3 @@
+text/html; lynx -stdin -dump -force_html ; copiousoutput
+image/*; feh %s
+

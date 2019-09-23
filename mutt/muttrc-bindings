@@ -1,0 +1,7 @@
+bind pager G bottom     # just like vi and less
+bind index \cP sidebar-prev
+bind index \cN sidebar-next
+bind index \cO sidebar-toggle-visible
+bind pager \cP sidebar-prev
+bind pager \cN sidebar-next
+bind pager \cO sidebar-toggle-visible
