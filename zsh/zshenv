@@ -4,6 +4,7 @@ path=(
   $HOME/.local/bin
   $HOME/.nimble/bin
   $HOME/.cargo/bin
+  $HOME/go/bin
   /bin
   /usr/bin
   /usr/sbin

@@ -23,3 +23,5 @@ alias -g ......='../../../../..'
 
 alias hexdump='od -A x -t x1z -v'
 
+alias scp='rsync --archive --xattrs --acls --progress --rsh="ssh"'
+
