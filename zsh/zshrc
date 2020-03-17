@@ -55,7 +55,8 @@ for zshrc_file in $HOME/.zsh/zsh/*.zsh; do
   source $zshrc_file
 done
 
-
+GOPATH="$HOME/go"
+export GOPATH
 
 PATH="/home/lonstein/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/lonstein/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
