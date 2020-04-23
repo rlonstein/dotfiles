@@ -10,17 +10,17 @@ fi
 
 tools=(
   github.com/GoASTScanner/gas
-  github.com/Masterminds/glide
+# pity, this was quite nice
+#  github.com/Masterminds/glide
   github.com/alecthomas/gometalinter
   github.com/davecgh/go-spew/spew
   github.com/derekparker/delve/cmd/dlv
-  github.com/golang/lint/golint
+#  github.com/golang/x/lint/golint
   github.com/kisielk/errcheck
-  github.com/ksubedi/gomove
+#  github.com/ksubedi/gomove
   github.com/mdempsky/unconvert
   github.com/motemen/gore
-  github.com/mvdan/interfacer
-  github.com/nsf/gocode
+#  github.com/mdempsky/gocode
   github.com/opennota/check/cmd/aligncheck
   github.com/opennota/check/cmd/structcheck
   github.com/opennota/check/cmd/varcheck
@@ -29,13 +29,11 @@ tools=(
   github.com/sqs/goreturns
   golang.org/x/tools/cmd/godoc
   golang.org/x/tools/cmd/gorename
-  honnef.co/go/tools/cmd/gosimple
-  honnef.co/go/tools/cmd/megacheck
+  github.com/stretchr/testify
   honnef.co/go/tools/cmd/staticcheck
   honnef.co/go/tools/cmd/structlayout
   honnef.co/go/tools/cmd/structlayout-optimize
   honnef.co/go/tools/cmd/structlayout-pretty
-  honnef.co/go/tools/cmd/unused
 )
 
 typeset -U tools
