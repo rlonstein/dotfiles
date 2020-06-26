@@ -1,6 +1,7 @@
 alias lsa='ls -A'
 alias lsd='ls -d *(/)'
 alias ll='ls -lAh'
+alias listeners="lsof -i -s tcp:listen |awk '{print $1 " "$8" " $9}'|sort|uniq"
 
 if [[ "${OS}" = "Linux" ]]; then
   alias atime="stat -c '%X (%x) %n'"

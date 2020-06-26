@@ -2,6 +2,7 @@ path=(
   $HOME/bin
   $HOME/local/bin
   $HOME/.local/bin
+  $HOME/.nimble/bin
   /bin
   /usr/bin
   /usr/sbin
