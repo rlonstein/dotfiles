@@ -1,3 +1,4 @@
+alias ls='ls --color=auto'
 alias lsa='ls -A'
 alias lsd='ls -d *(/)'
 alias ll='ls -lAh'
@@ -22,4 +23,6 @@ alias -g .....='../../../..'
 alias -g ......='../../../../..'
 
 alias hexdump='od -A x -t x1z -v'
+
+alias scp='rsync --archive --xattrs --acls --progress --rsh="ssh"'
 
